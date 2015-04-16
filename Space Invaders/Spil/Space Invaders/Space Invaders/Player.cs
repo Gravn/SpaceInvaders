@@ -19,7 +19,7 @@ namespace Space_Invaders
                 if (instance == null)
                 {
                     
-                    instance = new Player(new Vector2(100,400), 100,0, ssprite , 2);
+                    instance = new Player(new Vector2(256/2,224-16), 100,0, ssprite , 2);
                 }
                 return Player.instance;
             }
@@ -75,6 +75,8 @@ namespace Space_Invaders
 
         public override void OnCollision(GameObject other)
         {
+            Game1.invaders[(other as Invader).ArrayPos.X ,(other as Invader).ArrayPos.Y] = null;
+            Destroy(other);
             currentIndex = 1;
         }
     }

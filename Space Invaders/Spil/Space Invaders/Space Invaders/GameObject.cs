@@ -25,6 +25,17 @@ namespace Space_Invaders
         protected float currentIndex;
         //Test End
 
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+
+
+        public Rectangle collisionBox
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, (int)Sprite.Width / 2, (int)Sprite.Height / 2); }
+        }
 
         public Texture2D Sprite
         {
@@ -84,11 +95,6 @@ namespace Space_Invaders
 
         }
 
-        public Rectangle collisionBox
-        {
-            get { return new Rectangle((int)position.X,(int)position.Y,(int)Sprite.Width,(int)Sprite.Height);}
-        }
-
         public void CheckCollision()
         {
             for (int i = 0; i < Game1.Objects.Count; i++)
@@ -110,12 +116,18 @@ namespace Space_Invaders
 
         public virtual void OnCollision(GameObject other)
         {
-            Destroy(this);
+            //Destroy(this);
         }
 
-        public void Destroy(GameObject obj)
+        public virtual void Destroy(GameObject obj)
         {
-                Game1.Objects.Remove(obj);
+            Game1.Objects.Remove(obj);
+        }
+
+        public GameObject Clone()
+        {
+            GameObject clone = (GameObject)this.MemberwiseClone();
+            return clone;
         }
     }
 }

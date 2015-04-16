@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
+
+//Debug
+using System.Diagnostics;
+
 namespace Space_Invaders
 {
 
@@ -19,14 +23,27 @@ namespace Space_Invaders
             set { objects = value; }
         }
 
+        public static GameObject[,] invaders = new GameObject[11, 5];
+
+
+
         public static Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, player, shield, shot1, shot2, explosion;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        public float move;
+        int rightLimit = 0;
+        int leftLimit = 0;
+        int currentpos = 0;
+        bool goingRight = true;
+        bool goingDown = false;
 
         public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 224;
+            graphics.PreferredBackBufferWidth = 256;
             Content.RootDirectory = "Content";
         }
 
@@ -38,17 +55,39 @@ namespace Space_Invaders
         /// </summary>
         protected override void Initialize()
         {
+            
+
             // TODO: Add your initialization logic here
             base.Initialize();
+            
+            GameObject obj_invaderTop = new Invader(Vector2.Zero, 60, 1.3f, invaderTop, 2);
+            GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 60, 1.3f, invaderMiddle, 2);
+            GameObject obj_invaderBottom = new Invader(Vector2.Zero, 60, 1.3f, invaderBottom, 2);
+            GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 80, 0, invaderUFO, 1);
 
-            //Invader setup test
-            objects.Add(new Invader(new Vector2(400, 100 + 16 * 0), 60, 1.3f, invaderUFO, 1));
+            for (int i = 0; i < invaders.GetLength(0); i++)
+            { 
+                for(int j =0; j < invaders.GetLength(1); j++)
+                {
+                    if (j == 0)
+                    {
+                        invaders[i, j] = obj_invaderTop.Clone();
+                    }
+                    if (j == 1 || j == 2)
+                    {
+                        invaders[i, j] = obj_invaderMiddle.Clone();
+                    }
+                    if (j == 3 || j == 4)
+                    {
+                        invaders[i, j] = obj_invaderBottom.Clone();
+                    }
+                    (invaders[i, j] as Invader).ArrayPos = new Point(i, j);
+                    invaders[i, j].Position = new Vector2(0 + 16 * i, 15 + 16 * j);
+                    objects.Add(invaders[i, j]);
+                }
+            }
 
-            objects.Add(new Invader(new Vector2(400, 100 + 16 * 1), 60, 1.3f, invaderTop, 2));
-            objects.Add(new Invader(new Vector2(400, 100 + 16 * 2), 60, 1.3f, invaderMiddle, 2));
-            objects.Add(new Invader(new Vector2(400, 100 + 16 * 3), 60, 1.3f, invaderMiddle, 2));
-            objects.Add(new Invader(new Vector2(400, 100 + 16 * 4), 60, 1.3f, invaderBottom, 2));
-            objects.Add(new Invader(new Vector2(400, 100 + 16 * 5), 60, 1.3f, invaderBottom, 2));
+            objects.Add(obj_bigInvader);
         }
 
         /// <summary>
@@ -85,12 +124,79 @@ namespace Space_Invaders
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
 
-            // TODO: Add your update logic here
+            for (int i = 0; i < invaders.GetLength(0); i++)
+            {
+                for (int j = 0; j < invaders.GetLength(1); j++)
+                {
+                    if (invaders[i, j] != null)
+                    {
+                        rightLimit = i;
+                    }
+                }
+            }
+
+            leftLimit = GetLeftLimit();
+
+            //Debug.WriteLine("Invader[11,0]: " + invaders[10, 0].ToString());
+            Debug.WriteLine("RightLimit:" + rightLimit);
+            Debug.WriteLine("LeftLimit:" +  leftLimit);  
+
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            move += deltaTime * 1.3f;
+            if (move >= 1f)
+            {
+                if (currentpos + rightLimit * 16 + 16 >= graphics.PreferredBackBufferWidth)
+                {
+                    goingRight = false;
+
+                }
+
+                if (currentpos + leftLimit*16 <= 0)
+                {
+                    goingRight = true;
+                }
+
+                if (goingRight)
+                {
+                    currentpos++;
+                }
+                else
+                {
+                    currentpos--;
+                }
+
+
+                foreach (Invader inv in invaders)
+                {
+                    if (inv != null)
+                    {
+                        if (goingRight)
+                        {
+                            inv.Position += new Vector2(1, 0);
+                        }
+                        else
+                        {
+                            inv.Position += new Vector2(-1, 0);
+                        }
+                    }
+                }
+                move =0;
+            }
+
+
+
+
             Player.Instance.Update(gameTime);
 
             for (int i = 0; i < objects.Count; i++)
@@ -98,6 +204,22 @@ namespace Space_Invaders
                 objects[i].Update(gameTime);
             }
                 base.Update(gameTime);
+        }
+
+        private int GetLeftLimit()
+        {
+
+            for (int i = 0; i < invaders.GetLength(0); i++)
+            {
+                for (int j = 0; j < invaders.GetLength(1); j++)
+                {
+                    if (invaders[i, j] != null)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return 10;
         }
 
         /// <summary>
