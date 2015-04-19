@@ -18,14 +18,13 @@ namespace Space_Invaders
         }
 
         public Invader(Vector2 position,float movementSpeed, float animationSpeed, Texture2D sprite, int frames)
-            : base(position, movementSpeed,animationSpeed, sprite, frames)
+            : base(position, movementSpeed, animationSpeed, sprite, frames)
         {
             LoadContent();
         }
 
         public override void Destroy(GameObject obj)
-        {
-            
+        {           
             base.Destroy(obj);
         }
 

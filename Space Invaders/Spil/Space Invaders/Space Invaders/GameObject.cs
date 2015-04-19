@@ -18,6 +18,7 @@ namespace Space_Invaders
         //private Texture2D collisionBoxTexture; no need update diagram
         private Rectangle[] rectangles;
         private int frames;
+        protected string projetileVisible = "NO";
         //private int currentIndex;
         //private float timeElapsed;
         //protected float fps = 60;
@@ -41,6 +42,12 @@ namespace Space_Invaders
         {
             get { return sprite; }
             set { sprite = value; }
+        }
+
+        public string ProjetileVisible
+        {
+            get { return projetileVisible; }
+            set { projetileVisible = value; }
         }
 
         public GameObject(Vector2 position,float movementSpeed, float animationSpeed,Texture2D sprite, int frames)
