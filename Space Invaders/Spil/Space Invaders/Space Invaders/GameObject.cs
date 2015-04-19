@@ -89,10 +89,6 @@ namespace Space_Invaders
             //Start
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             currentIndex += deltaTime * animationSpeed;
-            if (collisionBox.Right > 10)
-            {
-
-            }
             if (currentIndex >= rectangles.Length - 1)
             {
                 currentIndex = 0;

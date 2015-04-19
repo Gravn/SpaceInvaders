@@ -12,6 +12,7 @@ namespace Space_Invaders
     {
         static Player instance;
         static Texture2D ssprite;
+        public static bool canShoot = true; 
 
         public static Player Instance
         {
@@ -50,10 +51,19 @@ namespace Space_Invaders
             {
                 direction += new Vector2(1, 0);
             }
-            if (keyState.IsKeyDown(Keys.Space))
+            if (keyState.IsKeyDown(Keys.Space) && canShoot)
             {
                 //Shoot
-                Game1.Objects.Add(new Projectile(new Vector2(this.position.X + 6, this.position.Y - 3), 100, 0, Game1.shot1, 1));
+
+                //using Cloning/prototype
+                GameObject myshot = Game1.obj_projectile.Clone();
+                (myshot as Projectile).direction = new Vector2(0, -1);
+                myshot.Position = new Vector2(this.position.X + 6,this.position.Y - 3);
+                Game1.Objects.Add(myshot);
+
+                //new object
+                //Game1.Objects.Add(new Projectile(new Vector2(this.position.X + 6, this.position.Y - 3), 100, 0, Game1.shot1, 1));
+                canShoot = false;
 
 
                 //shoottest

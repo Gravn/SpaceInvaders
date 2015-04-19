@@ -9,7 +9,10 @@ namespace Space_Invaders
 {
     class Invader : GameObject
     {
+        public static bool canShoot = false;
         private Point arrayPos = Point.Zero;
+
+
 
         public Point ArrayPos
         {
@@ -36,7 +39,6 @@ namespace Space_Invaders
             if (currentIndex != 2)
             {
                 base.Update(gameTime);
-                //position += new Vector2(0, movementSpeed/100);
             }
             else
             {
@@ -62,6 +64,22 @@ namespace Space_Invaders
             //    currentIndex = 0;
             //}
             base.UpdateAnimation(gameTime);
+        }
+
+        public override void OnCollision(GameObject other)
+        {
+            if (other is Projectile)
+            {
+                Game1.invaders[ArrayPos.X,ArrayPos.Y] = null;
+                CurrentIndex = 2;
+                Player.canShoot = true;
+                Destroy(other);
+            }
+
+            if (other is Player)
+            { 
+                
+            }
         }
 
     }

@@ -24,8 +24,10 @@ namespace Space_Invaders
             set { objects = value; }
         }
 
-        public static GameObject[,] invaders = new GameObject[11, 5];
+        public static GameObject obj_projectile;
 
+        public static GameObject[,] invaders = new GameObject[11, 5];
+        public static int[] invaderColumnLength = new int[11];
         public static Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, player, shield, shot1, shot2, explosion;
 
         GraphicsDeviceManager graphics;
@@ -59,13 +61,12 @@ namespace Space_Invaders
 
             // TODO: Add your initialization logic here
             base.Initialize();
-            
+
             GameObject obj_invaderTop = new Invader(Vector2.Zero, 0, 1.3f, invaderTop, 3);
             GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 0, 1.3f, invaderMiddle, 3);
             GameObject obj_invaderBottom = new Invader(Vector2.Zero, 0, 1.3f, invaderBottom, 3);
             GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 80, 0, invaderUFO, 2);
-            GameObject obj_projectile = new Projectile(Vector2.Zero, 100, 0, shot1, 1);
-            
+            obj_projectile = new Projectile(Vector2.Zero, 100, 0, shot1, 1);
 
             for (int i = 0; i < invaders.GetLength(0); i++)
             { 
@@ -88,7 +89,6 @@ namespace Space_Invaders
                     objects.Add(invaders[i, j]);
                 }
             }
-
             objects.Add(obj_bigInvader);
 
             objects.Add(new Shield(new Vector2(24 + 64 * 0, 180), 0, 0, shield, 12));
@@ -152,6 +152,7 @@ namespace Space_Invaders
                     if (invaders[i, j] != null)
                     {
                         rightLimit = i;
+                        invaderColumnLength[i] = j;
                     }
                 }
             }
@@ -159,14 +160,16 @@ namespace Space_Invaders
             leftLimit = GetLeftLimit();
 
             //Debug.WriteLine("Invader[11,0]: " + invaders[10, 0].ToString());
-            Debug.WriteLine("RightLimit:" + rightLimit);
-            Debug.WriteLine("LeftLimit:" +  leftLimit);  
+            
+            Debug.WriteLine("ColumnLength[0]:" + invaderColumnLength[0]);
+            //Debug.WriteLine("LeftLimit:" +  leftLimit);  
 
-
+            System.Random r = new System.Random();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             move += deltaTime * 1.3f;
             if (move >= 1f)
             {
+                shoot(r.Next(0,11));
                 if (currentpos + rightLimit * 16 + 16 >= graphics.PreferredBackBufferWidth)
                 {
                     goingRight = false;
@@ -205,9 +208,6 @@ namespace Space_Invaders
                 move =0;
             }
 
-
-
-
             Player.Instance.Update(gameTime);
 
             for (int i = 0; i < objects.Count; i++)
@@ -217,6 +217,13 @@ namespace Space_Invaders
 
             base.Update(gameTime);
 
+        }
+
+        public void shoot(int column)
+        {
+            GameObject shot = obj_projectile.Clone();
+            shot.Position = new Vector2(currentpos + column * 16 + 8, invaderColumnLength[column] * 16+28);
+            objects.Add(shot);
         }
 
         private int GetLeftLimit()

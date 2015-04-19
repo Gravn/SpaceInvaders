@@ -55,8 +55,9 @@ namespace Space_Invaders
                         {
                             if (this.currentIndexes[j] < 5)
                             {
-                                currentIndexes[j] = 1;
+                                currentIndexes[j] += 1;
                                 OnCollision(Game1.Objects[i]);
+                                break;
                             }
                         }
                     }
@@ -66,8 +67,9 @@ namespace Space_Invaders
 
         public override void OnCollision(GameObject other)
         {
-
-            base.OnCollision(other);
+            Player.canShoot = true;
+            Destroy(other);
+            //base.OnCollision(other);
         }
 
         public override void LoadContent()
