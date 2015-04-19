@@ -57,7 +57,7 @@ namespace Space_Invaders
 
 
                 //shoottest
-               Game1.Objects.Add(new Invader(new Vector2(this.position.X,this.position.Y+16),10,1.3f,this.sprite,3));
+               //Game1.Objects.Add(new Invader(new Vector2(this.position.X,this.position.Y+16),10,1.3f,this.sprite,3));
                 
             }
         }

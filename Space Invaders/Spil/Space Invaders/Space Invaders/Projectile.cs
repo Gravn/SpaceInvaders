@@ -14,5 +14,12 @@ namespace Space_Invaders
         {
             LoadContent();
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            position += new Vector2(0, -movementSpeed*deltaTime);
+            //base.Update(gameTime);
+        }
     }
 }
