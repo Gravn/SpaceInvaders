@@ -70,7 +70,6 @@ namespace Space_Invaders
 
         public override void LoadContent()
         {
-
             int width = sprite.Width / frames;
             int height = sprite.Height / frames;
             rectangles2d = new Rectangle[frames,frames];

@@ -60,9 +60,9 @@ namespace Space_Invaders
             // TODO: Add your initialization logic here
             base.Initialize();
             
-            GameObject obj_invaderTop = new Invader(Vector2.Zero, 60, 1.3f, invaderTop, 2);
-            GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 60, 1.3f, invaderMiddle, 2);
-            GameObject obj_invaderBottom = new Invader(Vector2.Zero, 60, 1.3f, invaderBottom, 2);
+            GameObject obj_invaderTop = new Invader(Vector2.Zero, 0, 1.3f, invaderTop, 2);
+            GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 0, 1.3f, invaderMiddle, 2);
+            GameObject obj_invaderBottom = new Invader(Vector2.Zero, 0, 1.3f, invaderBottom, 2);
             GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 80, 0, invaderUFO, 1);
             GameObject obj_projectile = new Projectile(Vector2.Zero, 100, 0, shot1, 1);
             
@@ -90,6 +90,13 @@ namespace Space_Invaders
             }
 
             objects.Add(obj_bigInvader);
+
+            objects.Add(new Shield(new Vector2(24 + 64 * 0, 180), 0, 0, shield, 12));
+            objects.Add(new Shield(new Vector2(24 + 64 * 1, 180), 0, 0, shield, 12));
+            objects.Add(new Shield(new Vector2(24 + 64 * 2, 180), 0, 0, shield, 12));
+            objects.Add(new Shield(new Vector2(24 + 64 * 3, 180), 0, 0, shield, 12));
+
+
         }
 
         /// <summary>
@@ -107,6 +114,7 @@ namespace Space_Invaders
             invaderBottom = Content.Load<Texture2D>("invader_Bottom");
             invaderTop = Content.Load<Texture2D>("invader_Top");
             invaderUFO = Content.Load<Texture2D>("invader_UFO");
+            shield = Content.Load<Texture2D>("shield");
             Player.Instance.Sprite = Content.Load<Texture2D>("player");
             Player.Instance.LoadContent();
             shot1 = Content.Load<Texture2D>("shot_electric");

@@ -14,10 +14,10 @@ namespace Space_Invaders
         protected Vector2 direction;
         protected float animationSpeed;
         protected float movementSpeed;
-        private Texture2D sprite;
+        protected Texture2D sprite;
         //private Texture2D collisionBoxTexture; no need update diagram
-        private Rectangle[] rectangles;
-        private int frames;
+        protected Rectangle[] rectangles;
+        protected int frames;
         protected string projetileVisible = "NO";
         //private int currentIndex;
         //private float timeElapsed;
@@ -84,25 +84,30 @@ namespace Space_Invaders
             //    currentIndex = 0;
             //}
 
+
+            UpdateAnimation(gameTime);
+            CheckCollision();
+
+        }
+
+        public virtual void UpdateAnimation(GameTime gameTime)
+        {
             //Fps dependent animation
             //Start
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             currentIndex += deltaTime * animationSpeed;
             if (collisionBox.Right > 10)
-            { 
-                
+            {
+
             }
             if (currentIndex >= rectangles.Length)
             {
                 currentIndex = 0;
             }
             //End
-
-            CheckCollision();
-
         }
 
-        public void CheckCollision()
+        public virtual void CheckCollision()
         {
             for (int i = 0; i < Game1.Objects.Count; i++)
             {

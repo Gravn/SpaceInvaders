@@ -36,7 +36,7 @@ namespace Space_Invaders
         {
             if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.Up))
             {
-                //direction += new Vector2(0, -1);
+                direction += new Vector2(0, -1);
             }
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.Left))
             {
@@ -44,7 +44,7 @@ namespace Space_Invaders
             }
             if (keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.Down))
             {
-                //direction += new Vector2(0, 1);
+                direction += new Vector2(0, 1);
             }
             if (keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.Right))
             {
