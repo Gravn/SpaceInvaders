@@ -53,7 +53,9 @@ namespace Space_Invaders
             {
                 //Shoot
 
-                //deathAnimTest
+
+                //shoottest
+               Game1.Objects.Add(new Invader(new Vector2(this.position.X,this.position.Y+16),10,1.3f,this.sprite,3));
                 
             }
         }
@@ -75,9 +77,15 @@ namespace Space_Invaders
 
         public override void OnCollision(GameObject other)
         {
-            Game1.invaders[(other as Invader).ArrayPos.X ,(other as Invader).ArrayPos.Y] = null;
-            Destroy(other);
-            currentIndex = 1;
+            if (other is Invader)
+            {
+                Invader invader = other as Invader;
+                Game1.invaders[invader.ArrayPos.X,invader.ArrayPos.Y] = null;
+                invader.CurrentIndex = 2;
+                //Destroy(other);
+                currentIndex = 1;
+            }
+            
         }
     }
 }
