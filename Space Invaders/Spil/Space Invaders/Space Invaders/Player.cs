@@ -53,7 +53,7 @@ namespace Space_Invaders
             if (keyState.IsKeyDown(Keys.Space))
             {
                 //Shoot
-                ProjetileVisible = "YES";
+                Game1.Objects.Add(new Projectile(new Vector2(this.position.X + 6, this.position.Y - 3), 100, 0, Game1.shot1, 1));
 
 
                 //shoottest
