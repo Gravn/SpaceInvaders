@@ -17,6 +17,7 @@ namespace Space_Invaders
     public class Game1 : Game
     {
         private static List<GameObject> objects = new List<GameObject>();
+        
         public static List<GameObject> Objects
         {
             get { return objects; }
@@ -25,9 +26,8 @@ namespace Space_Invaders
 
         public static GameObject[,] invaders = new GameObject[11, 5];
 
-
-
         public static Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, player, shield, shot1, shot2, explosion;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -60,10 +60,12 @@ namespace Space_Invaders
             // TODO: Add your initialization logic here
             base.Initialize();
             
-            GameObject obj_invaderTop = new Invader(Vector2.Zero, 0, 1.3f, invaderTop, 3);
-            GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 0, 1.3f, invaderMiddle, 3);
-            GameObject obj_invaderBottom = new Invader(Vector2.Zero, 0, 1.3f, invaderBottom, 3);
-            GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 80, 0, invaderUFO, 2);
+            GameObject obj_invaderTop = new Invader(Vector2.Zero, 60, 1.3f, invaderTop, 2);
+            GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 60, 1.3f, invaderMiddle, 2);
+            GameObject obj_invaderBottom = new Invader(Vector2.Zero, 60, 1.3f, invaderBottom, 2);
+            GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 80, 0, invaderUFO, 1);
+            GameObject obj_projectile = new Projectile(Vector2.Zero, 100, 0, shot1, 1);
+            
 
             for (int i = 0; i < invaders.GetLength(0); i++)
             { 
@@ -88,11 +90,6 @@ namespace Space_Invaders
             }
 
             objects.Add(obj_bigInvader);
-
-                objects.Add(new Shield(new Vector2(24, 180), 0, 0, shield, 12));
-                objects.Add(new Shield(new Vector2(24+64*1, 180), 0, 0, shield, 12));
-                objects.Add(new Shield(new Vector2(24+64*2, 180), 0, 0, shield, 12));
-                objects.Add(new Shield(new Vector2(24+64*3, 180), 0, 0, shield, 12));
         }
 
         /// <summary>
@@ -110,9 +107,9 @@ namespace Space_Invaders
             invaderBottom = Content.Load<Texture2D>("invader_Bottom");
             invaderTop = Content.Load<Texture2D>("invader_Top");
             invaderUFO = Content.Load<Texture2D>("invader_UFO");
-            shield = Content.Load<Texture2D>("shield");
             Player.Instance.Sprite = Content.Load<Texture2D>("player");
             Player.Instance.LoadContent();
+            shot1 = Content.Load<Texture2D>("shot_electric");
 
         }
 
@@ -209,7 +206,9 @@ namespace Space_Invaders
             {
                 objects[i].Update(gameTime);
             }
-                base.Update(gameTime);
+
+            base.Update(gameTime);
+
         }
 
         private int GetLeftLimit()
@@ -244,7 +243,7 @@ namespace Space_Invaders
             for (int i = 0; i < objects.Count; i++)
             {
                 objects[i].Draw(spriteBatch);
-            }
+            } 
 
             spriteBatch.End();
 

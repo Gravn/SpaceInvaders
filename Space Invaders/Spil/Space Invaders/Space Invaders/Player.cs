@@ -12,6 +12,7 @@ namespace Space_Invaders
     {
         static Player instance;
         static Texture2D ssprite;
+
         public static Player Instance
         {
             get
@@ -19,13 +20,13 @@ namespace Space_Invaders
                 if (instance == null)
                 {
                     
-                    instance = new Player(new Vector2(256/2,224-16), 100,0, ssprite , 2);
+                    instance = new Player(new Vector2(256/2,224-16), 50,0, ssprite , 2);
                 }
                 return Player.instance;
             }
         }
 
-        private Player(Vector2 position,float movementSpeed ,float animationSpeed,Texture2D sprite, int frames) : base(position,movementSpeed,animationSpeed, sprite, frames)
+        private Player(Vector2 position,float movementSpeed ,float animationSpeed,Texture2D sprite, int frames) : base(position, movementSpeed, animationSpeed, sprite, frames)
         {
             this.Sprite = sprite;
             ssprite = sprite;
@@ -35,7 +36,7 @@ namespace Space_Invaders
         {
             if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.Up))
             {
-                direction += new Vector2(0, -1);
+                //direction += new Vector2(0, -1);
             }
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.Left))
             {
@@ -43,7 +44,7 @@ namespace Space_Invaders
             }
             if (keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.Down))
             {
-                direction += new Vector2(0, 1);
+                //direction += new Vector2(0, 1);
             }
             if (keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.Right))
             {
@@ -52,6 +53,7 @@ namespace Space_Invaders
             if (keyState.IsKeyDown(Keys.Space))
             {
                 //Shoot
+                ProjetileVisible = "YES";
 
 
                 //shoottest

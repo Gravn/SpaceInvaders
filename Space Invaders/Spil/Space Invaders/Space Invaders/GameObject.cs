@@ -14,10 +14,11 @@ namespace Space_Invaders
         protected Vector2 direction;
         protected float animationSpeed;
         protected float movementSpeed;
-        protected Texture2D sprite;
+        private Texture2D sprite;
         //private Texture2D collisionBoxTexture; no need update diagram
-        protected Rectangle[] rectangles;
-        protected int frames;
+        private Rectangle[] rectangles;
+        private int frames;
+        protected string projetileVisible = "NO";
         //private int currentIndex;
         //private float timeElapsed;
         //protected float fps = 60;
@@ -41,6 +42,12 @@ namespace Space_Invaders
         {
             get { return sprite; }
             set { sprite = value; }
+        }
+
+        public string ProjetileVisible
+        {
+            get { return projetileVisible; }
+            set { projetileVisible = value; }
         }
 
         public GameObject(Vector2 position,float movementSpeed, float animationSpeed,Texture2D sprite, int frames)
@@ -79,15 +86,6 @@ namespace Space_Invaders
 
             //Fps dependent animation
             //Start
-            
-            //End
-            UpdateAnimation(gameTime);
-            CheckCollision();
-
-        }
-
-        public virtual void UpdateAnimation(GameTime gameTime)
-        {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             currentIndex += deltaTime * animationSpeed;
             if (collisionBox.Right > 10)
@@ -98,15 +96,19 @@ namespace Space_Invaders
             {
                 currentIndex = 0;
             }
+            //End
+
+            CheckCollision();
+
         }
 
-        public virtual void CheckCollision()
+        public void CheckCollision()
         {
             for (int i = 0; i < Game1.Objects.Count; i++)
             {
                 if (Game1.Objects[i] != this)
                 {
-                    if(this.collisionBox.Intersects(Game1.Objects[i].collisionBox))
+                    if (this.collisionBox.Intersects(Game1.Objects[i].collisionBox))
                     {
                         OnCollision(Game1.Objects[i]);
                     }
@@ -121,7 +123,7 @@ namespace Space_Invaders
 
         public virtual void OnCollision(GameObject other)
         {
-
+            //Destroy(this);
         }
 
         public virtual void Destroy(GameObject obj)
