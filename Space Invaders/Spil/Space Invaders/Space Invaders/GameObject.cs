@@ -93,7 +93,7 @@ namespace Space_Invaders
             {
 
             }
-            if (currentIndex >= rectangles.Length)
+            if (currentIndex >= rectangles.Length - 1)
             {
                 currentIndex = 0;
             }
@@ -119,10 +119,7 @@ namespace Space_Invaders
             spriteBatch.Draw(sprite, position, rectangles[(int)currentIndex], Color.White);
         }
 
-        public virtual void OnCollision(GameObject other)
-        {
-            //Destroy(this);
-        }
+        public virtual void OnCollision(GameObject other) { }
 
         public virtual void Destroy(GameObject obj)
         {

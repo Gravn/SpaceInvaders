@@ -37,8 +37,10 @@ namespace Space_Invaders
 
         public override void Update(GameTime gameTime)
         {
-            
+     
             CheckCollision();
+            if (currentIndexes == null)
+                Destroy(this);
         }
 
         public override void CheckCollision()

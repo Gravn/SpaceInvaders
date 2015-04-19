@@ -36,7 +36,7 @@ namespace Space_Invaders
             if (currentIndex != 2)
             {
                 base.Update(gameTime);
-                position += new Vector2(0, movementSpeed/100);
+                //position += new Vector2(0, movementSpeed/100);
             }
             else
             {
@@ -51,23 +51,17 @@ namespace Space_Invaders
 
         public override void UpdateAnimation(GameTime gameTime)
         {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            currentIndex += deltaTime * animationSpeed;
-            if (collisionBox.Right > 10)
-            {
+            //float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //currentIndex += deltaTime * animationSpeed;
+            //if (collisionBox.Right > 10)
+            //{
 
-            }
-            if (currentIndex >= rectangles.Length - 1)
-            {
-                currentIndex = 0;
-            }
-            //base.UpdateAnimation(gameTime);
-        }
-
-        public override void OnCollision(GameObject other)
-        {
-            Destroy(this);
-            base.OnCollision(other);
+            //}
+            //if (currentIndex >= rectangles.Length - 1)
+            //{
+            //    currentIndex = 0;
+            //}
+            base.UpdateAnimation(gameTime);
         }
 
     }

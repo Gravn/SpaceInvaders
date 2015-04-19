@@ -19,7 +19,24 @@ namespace Space_Invaders
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             position += new Vector2(0, -movementSpeed*deltaTime);
-            //base.Update(gameTime);
+            base.Update(gameTime);
+        }
+
+        public override void OnCollision(GameObject other)
+        {
+            if (other is Invader)
+            {
+                Invader invader = other as Invader;
+                Game1.invaders[invader.ArrayPos.X, invader.ArrayPos.Y] = null;
+                invader.CurrentIndex = 2;
+                Destroy(this);
+            }
+
+            if (other is Shield)
+            {
+                //code here
+            }
+
         }
     }
 }
