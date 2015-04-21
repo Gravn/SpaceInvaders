@@ -7,10 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Space_Invaders
 {
-    class Projectile : GameObject
+    abstract class Projectile : GameObject
     {
-        public Vector2 direction = new Vector2(0,1);
-
         public Projectile (Vector2 position,float movementSpeed, float animationSpeed, Texture2D sprite, int frames)
             : base(position, movementSpeed, animationSpeed, sprite, frames)
         {
@@ -21,22 +19,13 @@ namespace Space_Invaders
         public override void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            position += new Vector2(0, movementSpeed*deltaTime*direction.Y);
+            position += new Vector2(0, movementSpeed * deltaTime * direction.Y);
 
-            if (position.Y < 0)
+            if (position.Y < 0 || position.Y > 224)
             {
                 Destroy(this);
             }
             base.Update(gameTime);
-        }
-
-        public override void OnCollision(GameObject other)
-        {
-            if (other is Shield)
-            {
-                //code here
-            }
-
         }
     }
 }

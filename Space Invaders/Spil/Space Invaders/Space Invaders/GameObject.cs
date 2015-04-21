@@ -68,21 +68,8 @@ namespace Space_Invaders
 
         public virtual void Update(GameTime gameTime)
         {
-            //old
-            //timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            //currentIndex = (int)(timeElapsed * fps);
-
-            //if (currentIndex > rectangles.Length - 1)
-            //{
-            //    timeElapsed = 0;
-            //    currentIndex = 0;
-            //}
-
-
             UpdateAnimation(gameTime);
             CheckCollision();
-
         }
 
         public virtual void UpdateAnimation(GameTime gameTime)

@@ -67,9 +67,15 @@ namespace Space_Invaders
 
         public override void OnCollision(GameObject other)
         {
-            Player.canShoot = true;
-            Destroy(other);
-            //base.OnCollision(other);
+            if (other is PlayerProjectile)
+            {
+                Player.canShoot = true;
+                Destroy(other);
+            }
+            if (other is InvaderProjectile)
+            {
+                Destroy(other);
+            }
         }
 
         public override void LoadContent()
@@ -104,8 +110,6 @@ namespace Space_Invaders
             spriteBatch.Draw(sprite, new Vector2(position.X, position.Y + 11), rectangles2d[(int)currentIndexes[9], 9], Color.White);
             spriteBatch.Draw(sprite, new Vector2(position.X + 7, position.Y + 11), rectangles2d[(int)currentIndexes[10], 10], Color.White);
             spriteBatch.Draw(sprite, new Vector2(position.X + 7 + 8, position.Y + 11), rectangles2d[(int)currentIndexes[11], 11], Color.White);
-            
-            //base.Draw(spriteBatch);
         } 
     }
 }

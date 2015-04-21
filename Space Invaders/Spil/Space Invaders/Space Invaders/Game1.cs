@@ -17,22 +17,13 @@ namespace Space_Invaders
     public class Game1 : Game
     {
         private static List<GameObject> objects = new List<GameObject>();
-        
-        public static List<GameObject> Objects
-        {
-            get { return objects; }
-            set { objects = value; }
-        }
-
         public static GameObject obj_projectile;
-
+        public GameObject obj_electric;
         public static GameObject[,] invaders = new GameObject[11, 5];
         public static int[] invaderColumnLength = new int[11];
-        public static Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, player, shield, shot1, shot2, explosion;
-
+        public static Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, shield, shot1, shot2;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
         public static int lives = 3;
         public float move;
         int rightLimit = 0;
@@ -40,6 +31,12 @@ namespace Space_Invaders
         int currentpos = 0;
         bool goingRight = true;
         bool goingDown = false;
+
+        public static List<GameObject> Objects
+        {
+            get { return objects; }
+            set { objects = value; }
+        }
 
         public Game1()
             : base()
@@ -58,7 +55,6 @@ namespace Space_Invaders
         /// </summary>
         protected override void Initialize()
         {
-            
 
             // TODO: Add your initialization logic here
             base.Initialize();
@@ -67,7 +63,8 @@ namespace Space_Invaders
             GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 0, 1.3f, invaderMiddle, 3);
             GameObject obj_invaderBottom = new Invader(Vector2.Zero, 0, 1.3f, invaderBottom, 3);
             GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 80, 0, invaderUFO, 2);
-            obj_projectile = new Projectile(Vector2.Zero, 100, 0, shot1, 1);
+            obj_projectile = new PlayerProjectile(Vector2.Zero, 100, 0, shot1, 1);
+            obj_electric = new InvaderProjectile(Vector2.Zero, 100, 0, shot1, 1);
 
             for (int i = 0; i < invaders.GetLength(0); i++)
             { 
@@ -91,13 +88,10 @@ namespace Space_Invaders
                 }
             }
             objects.Add(obj_bigInvader);
-
             objects.Add(new Shield(new Vector2(24 + 64 * 0, 180), 0, 0, shield, 12));
             objects.Add(new Shield(new Vector2(24 + 64 * 1, 180), 0, 0, shield, 12));
             objects.Add(new Shield(new Vector2(24 + 64 * 2, 180), 0, 0, shield, 12));
             objects.Add(new Shield(new Vector2(24 + 64 * 3, 180), 0, 0, shield, 12));
-
-
         }
 
         /// <summary>
@@ -162,7 +156,8 @@ namespace Space_Invaders
 
             //Debug.WriteLine("Invader[11,0]: " + invaders[10, 0].ToString());
             
-            Debug.WriteLine("ColumnLength[0]:" + invaderColumnLength[0]);
+            //Debug.WriteLine("ColumnLength[0]:" + invaderColumnLength[0]);
+            Debug.WriteLine("Can Shoot" + Player.canShoot);
             //Debug.WriteLine("LeftLimit:" +  leftLimit);  
 
             System.Random r = new System.Random();
@@ -222,7 +217,7 @@ namespace Space_Invaders
 
         public void shoot(int column)
         {
-            GameObject shot = obj_projectile.Clone();
+            GameObject shot = obj_electric.Clone();
             shot.Position = new Vector2(currentpos + column * 16 + 8, invaderColumnLength[column] * 16+28);
             objects.Add(shot);
         }
