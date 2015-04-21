@@ -17,8 +17,7 @@ namespace Space_Invaders
     public class Game1 : Game
     {
         private static List<GameObject> objects = new List<GameObject>();
-        public static GameObject obj_projectile;
-        public GameObject obj_electric;
+        public static GameObject obj_projectile, obj_electric, obj_missile;
         public static GameObject[,] invaders = new GameObject[11, 5];
         public static int[] invaderColumnLength = new int[11];
         public static Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, shield, shot1, shot2;
@@ -62,9 +61,10 @@ namespace Space_Invaders
             GameObject obj_invaderTop = new Invader(Vector2.Zero, 0, 1.3f, invaderTop, 3);
             GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 0, 1.3f, invaderMiddle, 3);
             GameObject obj_invaderBottom = new Invader(Vector2.Zero, 0, 1.3f, invaderBottom, 3);
-            GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 80, 0, invaderUFO, 2);
-            obj_projectile = new PlayerProjectile(Vector2.Zero, 100, 0, shot1, 1);
+            GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 40, 0, invaderUFO, 2);
+            obj_projectile = new PlayerProjectile(Vector2.Zero, 200, 0, shot1, 1);
             obj_electric = new InvaderProjectile(Vector2.Zero, 100, 0, shot1, 1);
+            obj_missile = new InvaderProjectile(Vector2.Zero, 100, 0, shot2, 1);
 
             for (int i = 0; i < invaders.GetLength(0); i++)
             { 
@@ -113,6 +113,7 @@ namespace Space_Invaders
             Player.Instance.Sprite = Content.Load<Texture2D>("player");
             Player.Instance.LoadContent();
             shot1 = Content.Load<Texture2D>("shot_electric");
+            shot2 = Content.Load<Texture2D>("shot_missile");
 
         }
 
@@ -179,11 +180,11 @@ namespace Space_Invaders
 
                 if (goingRight)
                 {
-                    currentpos++;
+                    currentpos += 2;
                 }
                 else
                 {
-                    currentpos--;
+                    currentpos -= 2;
                 }
 
 
@@ -193,15 +194,17 @@ namespace Space_Invaders
                     {
                         if (goingRight)
                         {
-                            inv.Position += new Vector2(1, 0);
+                            inv.Position += new Vector2(2, 0);
                         }
                         else
                         {
-                            inv.Position += new Vector2(-1, 0);
+                            inv.Position += new Vector2(-2, 0);
                         }
                     }
                 }
                 move =0;
+
+                
             }
 
             Player.Instance.Update(gameTime);

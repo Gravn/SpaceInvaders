@@ -44,6 +44,12 @@ namespace Space_Invaders
             set { sprite = value; }
         }
 
+        public float MovementSpeed
+        {
+            get { return movementSpeed; }
+            set { movementSpeed = value; }
+        }
+
         public GameObject(Vector2 position,float movementSpeed, float animationSpeed,Texture2D sprite, int frames)
         {
             this.position = position;

@@ -1,6 +1,6 @@
-- Big invader currentIndex 2 eksisterer ikke.
+- Big invader currentIndex 2 eksisterer ikke. (Fixet)
 - Weapon Interface skal implementeres. (Ændret)
 - Liv og score skal vises.
 - Invaders skal bevæge sig nedad.
 - Opdatere Klassediagram.
-- Shield sprites skal have mere destruction.
+- Shield sprites skal have mere destruction. (Fixet)
