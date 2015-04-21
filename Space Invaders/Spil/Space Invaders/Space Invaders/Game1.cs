@@ -16,18 +16,18 @@ namespace Space_Invaders
     /// </summary>
     public class Game1 : Game
     {
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
         private static List<GameObject> objects = new List<GameObject>();
         public static GameObject obj_projectile, obj_electric, obj_missile;
         public static GameObject[,] invaders = new GameObject[11, 5];
         public static int[] invaderColumnLength = new int[11];
-        public static Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, shield, shot1, shot2;
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public Texture2D invaderUFO, invaderTop, invaderMiddle, invaderBottom, shield, shot1, shot2;
         public static int lives = 3;
         public float move;
         int rightLimit = 0;
         int leftLimit = 0;
-        int currentpos = 0;
+        int currentpos = 40;
         bool goingRight = true;
         bool goingDown = false;
 
@@ -83,7 +83,7 @@ namespace Space_Invaders
                         invaders[i, j] = obj_invaderBottom.Clone();
                     }
                     (invaders[i, j] as Invader).ArrayPos = new Point(i, j);
-                    invaders[i, j].Position = new Vector2(0 + 16 * i, 15 + 16 * j);
+                    invaders[i, j].Position = new Vector2(40 + 16 * i, 15 + 16 * j);
                     objects.Add(invaders[i, j]);
                 }
             }
@@ -155,27 +155,23 @@ namespace Space_Invaders
 
             leftLimit = GetLeftLimit();
 
-            //Debug.WriteLine("Invader[11,0]: " + invaders[10, 0].ToString());
-            
-            //Debug.WriteLine("ColumnLength[0]:" + invaderColumnLength[0]);
-            Debug.WriteLine("Can Shoot" + Player.canShoot);
-            //Debug.WriteLine("LeftLimit:" +  leftLimit);  
-
             System.Random r = new System.Random();
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             move += deltaTime * 1.3f;
-            if (move >= 1f)
+            if (move >= 1)
             {
                 shoot(r.Next(0,11));
                 if (currentpos + rightLimit * 16 + 16 >= graphics.PreferredBackBufferWidth)
                 {
                     goingRight = false;
+                    goingDown = true;
 
                 }
 
                 if (currentpos + leftLimit*16 <= 0)
                 {
                     goingRight = true;
+                    goingDown = true;
                 }
 
                 if (goingRight)
@@ -200,11 +196,15 @@ namespace Space_Invaders
                         {
                             inv.Position += new Vector2(-2, 0);
                         }
+
+                        if (goingDown)
+                        {
+                            inv.Position += new Vector2(0, 2);
+                        }
                     }
                 }
-                move =0;
-
-                
+                goingDown = false;
+                move =0;   
             }
 
             Player.Instance.Update(gameTime);
@@ -215,7 +215,6 @@ namespace Space_Invaders
             }
 
             base.Update(gameTime);
-
         }
 
         public void shoot(int column)
