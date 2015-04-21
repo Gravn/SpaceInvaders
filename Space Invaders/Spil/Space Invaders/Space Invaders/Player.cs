@@ -31,6 +31,7 @@ namespace Space_Invaders
         {
             this.Sprite = sprite;
             ssprite = sprite;
+            this.size = new Vector2(15, 8);
         }
 
         private void HandleInput(KeyboardState keyState)
@@ -95,6 +96,12 @@ namespace Space_Invaders
                 Game1.invaders[invader.ArrayPos.X, invader.ArrayPos.Y] = null;
                 invader.CurrentIndex = 2;
                 currentIndex = 1;
+            }
+
+            if (other is Projectile)
+            {
+                currentIndex = 1;
+                Game1.lives--;
             }
             
         }

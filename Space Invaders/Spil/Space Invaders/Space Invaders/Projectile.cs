@@ -14,6 +14,7 @@ namespace Space_Invaders
         public Projectile (Vector2 position,float movementSpeed, float animationSpeed, Texture2D sprite, int frames)
             : base(position, movementSpeed, animationSpeed, sprite, frames)
         {
+            size = new Vector2(3, 6);
             LoadContent();
         }
 

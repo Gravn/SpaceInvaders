@@ -11,13 +11,14 @@ namespace Space_Invaders
     public abstract class GameObject
     {
         protected Vector2 position;
+        protected Vector2 size;
         protected Vector2 direction;
         protected float animationSpeed;
         protected float movementSpeed;
         protected Texture2D sprite;
-        //private Texture2D collisionBoxTexture; no need update diagram
         protected Rectangle[] rectangles;
         protected int frames;
+
         //private int currentIndex;
         //private float timeElapsed;
         //protected float fps = 60;
@@ -34,7 +35,7 @@ namespace Space_Invaders
 
         public Rectangle collisionBox
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, (int)Sprite.Width / 2, (int)Sprite.Height / 2); }
+            get { return new Rectangle((int)position.X, (int)position.Y,(int)this.size.X, (int)this.size.Y); }
         }
 
         public Texture2D Sprite
@@ -50,6 +51,7 @@ namespace Space_Invaders
             this.movementSpeed = movementSpeed;
             this.frames = frames;
             this.sprite = sprite;
+            this.size = new Vector2(16,8);
         }
 
         public virtual void LoadContent()

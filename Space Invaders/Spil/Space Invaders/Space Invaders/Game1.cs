@@ -33,6 +33,7 @@ namespace Space_Invaders
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static int lives = 3;
         public float move;
         int rightLimit = 0;
         int leftLimit = 0;
