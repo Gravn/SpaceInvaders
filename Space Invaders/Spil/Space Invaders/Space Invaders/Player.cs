@@ -103,13 +103,10 @@ namespace Space_Invaders
 
         public override void OnCollision(GameObject other)
         {
-            if (other is InvaderProjectile)
-            {
                 position = new Vector2(256 / 2, 180);
                 Destroy(other);
                 currentIndex = 1;
                 Game1.lives--;
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
