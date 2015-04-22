@@ -11,6 +11,7 @@ namespace Space_Invaders
     {
         Random random = new Random();
         Vector2[] shootingPosition = new Vector2[3];
+        private int scoreValue = 100;
 
         public BigInvader(Vector2 position, float movementSpeed, float animationSpeed, Texture2D sprite, int frames)
             : base(position, movementSpeed, animationSpeed, sprite, frames)
@@ -73,6 +74,7 @@ namespace Space_Invaders
         {
             if (other is PlayerProjectile)
             {
+                Game1.score += scoreValue;
                 Player.canShoot = true;
                 currentIndex = 1;
                 Destroy(other);

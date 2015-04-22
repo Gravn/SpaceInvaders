@@ -10,6 +10,7 @@ namespace Space_Invaders
     class Invader : GameObject
     {
         private Point arrayPos = Point.Zero;
+        private int scoreValue = 10;
 
         public Point ArrayPos
         {
@@ -46,6 +47,7 @@ namespace Space_Invaders
         {
             if (other is PlayerProjectile)
             {
+                Game1.score += scoreValue;
                 Player.canShoot = true;
                 Game1.invaders[ArrayPos.X,ArrayPos.Y] = null;
                 currentIndex = 2;

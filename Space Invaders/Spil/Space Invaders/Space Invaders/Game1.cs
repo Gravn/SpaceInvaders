@@ -16,12 +16,14 @@ namespace Space_Invaders
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont arial;
         private static List<GameObject> objects = new List<GameObject>();
         public static GameObject obj_projectile, obj_electric, obj_missile;
         public static GameObject[,] invaders = new GameObject[11, 5];
         public static int[] invaderColumnLength = new int[11];
         public Texture2D invaderUFO, invaderTop, invaderMiddle,player ,invaderBottom, shield, shot1, shot2;
         public static int lives = 3;
+        public static int score = 0000;
         public float move;
         int rightLimit = 0;
         int leftLimit = 0;
@@ -100,9 +102,7 @@ namespace Space_Invaders
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
             // TODO: use this.Content to load your game content here
             invaderMiddle = Content.Load<Texture2D>("invader_Middle");
             invaderBottom = Content.Load<Texture2D>("invader_Bottom");
@@ -114,7 +114,7 @@ namespace Space_Invaders
             Player.Instance.LoadContent();
             shot1 = Content.Load<Texture2D>("shot_electric");
             shot2 = Content.Load<Texture2D>("shot_missile");
-
+            arial = Content.Load<SpriteFont>("Font");
         }
 
         /// <summary>
@@ -154,7 +154,6 @@ namespace Space_Invaders
             }
 
             leftLimit = GetLeftLimit();
-
             
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             move += deltaTime * 1.3f;
@@ -275,6 +274,9 @@ namespace Space_Invaders
             {
                 spriteBatch.Draw(player, new Vector2(10+16*i,200),new Rectangle(0,0,16,16), Color.White);
             }
+            spriteBatch.DrawString(arial, "Score:", new Vector2(185, 190), Color.White);
+            spriteBatch.DrawString(arial, ""+score, new Vector2(185, 205), Color.White);
+            spriteBatch.DrawString(arial, "Lives:" + lives, new Vector2(10, 190), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
