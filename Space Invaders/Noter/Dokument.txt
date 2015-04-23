@@ -1,0 +1,28 @@
+Design dokument:
+
+OOA
+
+Diagram:
+
+Beskrivelse:
+GameWorld klassen instantierer og holder styr på alle andre objekter i spillet. Subklasserne Player, Projectile Invader og Shield nedarver fra superklassen GameObject. Player og Invader interagerer med projectile, enten ved instantiering eller kollision.
+Der kan kun eksistere én GameWorld, og én spiller, imens der kan findes mange instanser Projectile, Invader og Shield.
+
+
+Creational designpatterns:
+
+Singleton(Player)
+
+Vi har valgt at benytte Singleton pattern til vores player, da der kun må være én enkelt spiller igennem hele spillet. Vi laver ændringer til spilleren ved at referere til instancen, og kan ikke skabe flere instancer af spilleren. Dette er lettere end at skulle finde spilleren i en liste hver gang vi vil lave ændringer, da spiller objektet altid er den samme alligevel.
+
+Prototype(Invader,Projectile)
+
+Invaders og projektilerne i spillet benytter Prototype designpattern, da det er objekter som vi instantierer mange af, og som klones med stort set samme værdier.
+
+OOD
+
+Diagram
+
+Beskrivelse:
+
+
