@@ -32,6 +32,7 @@ namespace Space_Invaders
         int invadersremaining = 0;
         public static float animationSpeed = 1.3f;
         public static SoundEffect shootSound;
+        public static SoundEffect explosionSound;
 
         public static List<GameObject> Objects
         {
@@ -117,6 +118,7 @@ namespace Space_Invaders
             shot2 = Content.Load<Texture2D>("shot_missile");
             arial = Content.Load<SpriteFont>("Font");
             shootSound = Content.Load<SoundEffect>("shoot");
+            explosionSound = Content.Load<SoundEffect>("explosion");
             SoundEffect music = Content.Load<SoundEffect>("spaceinvaders1");
             SoundEffectInstance musicPlay = music.CreateInstance();
             musicPlay.IsLooped = false;

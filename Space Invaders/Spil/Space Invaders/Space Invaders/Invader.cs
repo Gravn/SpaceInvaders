@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Space_Invaders
 {
@@ -47,6 +48,9 @@ namespace Space_Invaders
         {
             if (other is PlayerProjectile)
             {
+                SoundEffectInstance invaderExplosion = Game1.explosionSound.CreateInstance();
+                invaderExplosion.IsLooped = false;
+                invaderExplosion.Play();
                 Game1.score += scoreValue;
                 Player.canShoot = true;
                 Game1.invaders[ArrayPos.X,ArrayPos.Y] = null;
