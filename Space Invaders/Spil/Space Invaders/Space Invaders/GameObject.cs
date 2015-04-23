@@ -83,7 +83,7 @@ namespace Space_Invaders
             //Fps dependent animation
             //Start
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            currentIndex += deltaTime * animationSpeed;
+            currentIndex += deltaTime * Game1.animationSpeed;
             if (currentIndex >= rectangles.Length - 1)
             {
                 currentIndex = 0;

@@ -31,6 +31,8 @@ namespace Space_Invaders
         bool goingRight = true;
         bool goingDown = false;
         System.Random r = new System.Random();
+        int invadersremaining = 0;
+        public static float animationSpeed = 1.3f;
 
         public static List<GameObject> Objects
         {
@@ -141,6 +143,7 @@ namespace Space_Invaders
                 Exit();
             }
 
+            invadersremaining = 0;
             for (int i = 0; i < invaders.GetLength(0); i++)
             {
                 for (int j = 0; j < invaders.GetLength(1); j++)
@@ -149,6 +152,7 @@ namespace Space_Invaders
                     {
                         rightLimit = i;
                         invaderColumnLength[i] = j;
+                        invadersremaining++;
                     }
                 }
             }
@@ -156,10 +160,31 @@ namespace Space_Invaders
             leftLimit = GetLeftLimit();
             
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            move += deltaTime * 1.3f;
-            if (move >= 1)
+            if (invadersremaining > 50)
             {
-                
+                animationSpeed = 1.3f;
+            }
+            if (invadersremaining < 50 && invadersremaining > 25)
+            {
+                animationSpeed = 5.3f;
+            }
+            if (invadersremaining < 25 && invadersremaining > 5)
+            {
+                animationSpeed = 10.3f;
+            }
+            if (invadersremaining < 5 && invadersremaining > 1)
+            {
+                animationSpeed = 40.3f;
+            }
+            if (invadersremaining == 1)
+            {
+                animationSpeed = 75.3f;
+            }
+
+            move += deltaTime * animationSpeed;
+            
+            if (move >= 1)
+            {               
                 shoot(r.Next(0,11));
                 if (currentpos + rightLimit * 16 + 16 >= graphics.PreferredBackBufferWidth)
                 {
@@ -277,6 +302,12 @@ namespace Space_Invaders
             spriteBatch.DrawString(arial, "Score:", new Vector2(185, 190), Color.White);
             spriteBatch.DrawString(arial, ""+score, new Vector2(185, 205), Color.White);
             spriteBatch.DrawString(arial, "Lives:" + lives, new Vector2(10, 190), Color.White);
+
+            if (invadersremaining == 0)
+            {
+                spriteBatch.DrawString(arial, "YOU WIN", new Vector2(256 / 2 - 32, 224 / 2 - 12), Color.White);
+                spriteBatch.DrawString(arial, "Press escape to exit", new Vector2(256 / 2 - 72, 0), Color.White);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -42,10 +42,12 @@ namespace Space_Invaders
         {
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.Left))
             {
+                if (position.X > 0)
                 direction += new Vector2(-1, 0);
             }
             if (keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.Right))
             {
+                if(position.X < 240)
                 direction += new Vector2(1, 0);
             }
             if (keyState.IsKeyDown(Keys.Space) && canShoot && currentIndex != 1)
@@ -104,7 +106,6 @@ namespace Space_Invaders
         {
                 position = new Vector2(256 / 2, 180);
                 Destroy(other);
-                canShoot = false;
                 currentIndex = 1;
                 Game1.lives--;
         }
