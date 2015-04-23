@@ -48,7 +48,7 @@ namespace Space_Invaders
             {
                 direction += new Vector2(1, 0);
             }
-            if (keyState.IsKeyDown(Keys.Space) && canShoot)
+            if (keyState.IsKeyDown(Keys.Space) && canShoot && currentIndex != 1)
             {
                 //using Cloning/prototype
                 GameObject myshot = Game1.obj_projectile.Clone();
@@ -82,7 +82,6 @@ namespace Space_Invaders
                     visible = !visible;
                     timer2 = (float)gameTime.TotalGameTime.TotalMilliseconds + 200;
                 }
-
                 if(visible)
                 {
                     playerColor = Color.White;
@@ -105,6 +104,7 @@ namespace Space_Invaders
         {
                 position = new Vector2(256 / 2, 180);
                 Destroy(other);
+                canShoot = false;
                 currentIndex = 1;
                 Game1.lives--;
         }
