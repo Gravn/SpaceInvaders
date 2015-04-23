@@ -55,6 +55,7 @@ namespace Space_Invaders
             {
                 SoundEffectInstance shootEffect = Game1.shootSound.CreateInstance();
                 shootEffect.IsLooped = false;
+                shootEffect.Volume = .5f;
                 shootEffect.Play();
 
                 //using Cloning/prototype

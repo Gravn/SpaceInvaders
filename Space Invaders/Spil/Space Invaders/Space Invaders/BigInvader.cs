@@ -77,6 +77,7 @@ namespace Space_Invaders
             {
                 SoundEffectInstance invaderExplosion = Game1.explosionSound.CreateInstance();
                 invaderExplosion.IsLooped = false;
+                invaderExplosion.Volume = 0.5f;
                 invaderExplosion.Play();
                 Game1.score += scoreValue;
                 Player.canShoot = true;
