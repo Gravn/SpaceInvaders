@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Space_Invaders
 {
@@ -52,6 +53,10 @@ namespace Space_Invaders
             }
             if (keyState.IsKeyDown(Keys.Space) && canShoot && currentIndex != 1)
             {
+                SoundEffectInstance shootEffect = Game1.shootSound.CreateInstance();
+                shootEffect.IsLooped = false;
+                shootEffect.Play();
+
                 //using Cloning/prototype
                 GameObject myshot = Game1.obj_projectile.Clone();
                 myshot.Position = new Vector2(this.position.X + 6,this.position.Y - 6);

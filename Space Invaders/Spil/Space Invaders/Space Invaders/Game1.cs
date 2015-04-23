@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
-
-//Debug
 using System.Diagnostics;
 
 namespace Space_Invaders
@@ -33,6 +31,7 @@ namespace Space_Invaders
         System.Random r = new System.Random();
         int invadersremaining = 0;
         public static float animationSpeed = 1.3f;
+        public static SoundEffect shootSound;
 
         public static List<GameObject> Objects
         {
@@ -117,6 +116,11 @@ namespace Space_Invaders
             shot1 = Content.Load<Texture2D>("shot_electric");
             shot2 = Content.Load<Texture2D>("shot_missile");
             arial = Content.Load<SpriteFont>("Font");
+            shootSound = Content.Load<SoundEffect>("shoot");
+            SoundEffect music = Content.Load<SoundEffect>("spaceinvaders1");
+            SoundEffectInstance musicPlay = music.CreateInstance();
+            musicPlay.IsLooped = false;
+            musicPlay.Play();
         }
 
         /// <summary>
