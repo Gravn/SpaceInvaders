@@ -58,7 +58,7 @@ namespace Space_Invaders
                 shootEffect.Play();
 
                 //using Cloning/prototype
-                GameObject myshot = Game1.obj_projectile.Clone();
+                GameObject myshot = Game1.obj_playerShot.Clone();
                 myshot.Position = new Vector2(this.position.X + 6,this.position.Y - 6);
                 Game1.Objects.Add(myshot);
                 canShoot = false;   

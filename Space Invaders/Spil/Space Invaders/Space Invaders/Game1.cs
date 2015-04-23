@@ -16,16 +16,17 @@ namespace Space_Invaders
         SpriteBatch spriteBatch;
         SpriteFont arial;
         private static List<GameObject> objects = new List<GameObject>();
-        public static GameObject obj_projectile, obj_electric, obj_missile;
+        public static GameObject obj_playerShot, obj_electric, obj_missile;
         public static GameObject[,] invaders = new GameObject[11, 5];
         public static int[] invaderColumnLength = new int[11];
-        public Texture2D invaderUFO, invaderTop, invaderMiddle,player ,invaderBottom, shield, shot1, shot2;
+        public Texture2D invaderUFO, invaderTop, invaderMiddle,player ,invaderBottom, shield,playerShot,shot1, shot2;
         public static int lives = 3;
         public static int score = 0000;
         public float move;
         int rightLimit = 0;
         int leftLimit = 0;
-        int currentpos = 40;
+        int currentPosX = 40;
+        int currentPosY = 0;
         bool goingRight = true;
         bool goingDown = false;
         System.Random r = new System.Random();
@@ -64,7 +65,7 @@ namespace Space_Invaders
             GameObject obj_invaderMiddle = new Invader(Vector2.Zero, 0, 1.3f, invaderMiddle, 3);
             GameObject obj_invaderBottom = new Invader(Vector2.Zero, 0, 1.3f, invaderBottom, 3);
             GameObject obj_bigInvader = new BigInvader(Vector2.Zero, 40, 0, invaderUFO, 2);
-            obj_projectile = new PlayerProjectile(Vector2.Zero, 200, 0, shot1, 1);
+            obj_playerShot = new PlayerProjectile(Vector2.Zero, 200, 0, playerShot, 1);
             obj_electric = new InvaderProjectile(Vector2.Zero, 100, 0, shot1, 1);
             obj_missile = new InvaderProjectile(Vector2.Zero, 100, 0, shot2, 1);
 
@@ -113,6 +114,7 @@ namespace Space_Invaders
             player = Content.Load<Texture2D>("player");
             Player.Instance.Sprite = Content.Load<Texture2D>("player");
             Player.Instance.LoadContent();
+            playerShot = Content.Load<Texture2D>("shot_player");
             shot1 = Content.Load<Texture2D>("shot_electric");
             shot2 = Content.Load<Texture2D>("shot_missile");
             arial = Content.Load<SpriteFont>("Font");
@@ -190,27 +192,28 @@ namespace Space_Invaders
             if (move >= 1)
             {               
                 shoot(r.Next(0,11));
-                if (currentpos + rightLimit * 16 + 16 >= graphics.PreferredBackBufferWidth)
+                if (currentPosX + rightLimit * 16 + 16 >= graphics.PreferredBackBufferWidth)
                 {
+                    currentPosY += 2;
                     goingRight = false;
                     goingDown = true;
                 }
 
-                if (currentpos + leftLimit*16 <= 0)
+                if (currentPosX + leftLimit*16 <= 0)
                 {
+                    currentPosY += 2;
                     goingRight = true;
                     goingDown = true;
                 }
 
                 if (goingRight)
                 {
-                    currentpos += 2;
+                    currentPosX += 2;
                 }
                 else
                 {
-                    currentpos -= 2;
+                    currentPosX -= 2;
                 }
-
 
                 foreach (Invader inv in invaders)
                 {
@@ -227,6 +230,7 @@ namespace Space_Invaders
 
                         if (goingDown)
                         {
+
                             inv.Position += new Vector2(0, 2);
                         }
                     }
@@ -260,7 +264,7 @@ namespace Space_Invaders
             }
             if (invaderColumnLength[column] != 0)
             {
-                shot.Position = new Vector2(currentpos + column * 16 + 8, invaderColumnLength[column] * 16 + 28);
+                shot.Position = new Vector2(currentPosX + column * 16 + 8, invaderColumnLength[column] * 16 + 20+currentPosY);
                 objects.Add(shot);
             }
         }
