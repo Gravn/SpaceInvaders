@@ -32,7 +32,7 @@ namespace Space_Invaders
             }
         }
 
-        private Player(Vector2 position,float movementSpeed ,float animationSpeed,Texture2D sprite, int frames) : base(position, movementSpeed, animationSpeed, sprite, frames)
+        private Player(Vector2 position, float movementSpeed, float animationSpeed, Texture2D sprite, int frames) : base(position, movementSpeed, animationSpeed, sprite, frames)
         {
             this.Sprite = sprite;
             ssprite = sprite;

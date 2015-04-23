@@ -18,13 +18,7 @@ namespace Space_Invaders
         protected Texture2D sprite;
         protected Rectangle[] rectangles;
         protected int frames;
-
-        //private int currentIndex;
-        //private float timeElapsed;
-        //protected float fps = 60;
-        //Test
         protected float currentIndex;
-        //Test End
 
         public Vector2 Position
         {
@@ -50,7 +44,7 @@ namespace Space_Invaders
             set { movementSpeed = value; }
         }
 
-        public GameObject(Vector2 position,float movementSpeed, float animationSpeed,Texture2D sprite, int frames)
+        public GameObject(Vector2 position, float movementSpeed, float animationSpeed, Texture2D sprite, int frames)
         {
             this.position = position;
             this.animationSpeed = animationSpeed;

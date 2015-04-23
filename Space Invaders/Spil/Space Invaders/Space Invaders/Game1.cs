@@ -19,7 +19,7 @@ namespace Space_Invaders
         public static GameObject obj_playerShot, obj_electric, obj_missile;
         public static GameObject[,] invaders = new GameObject[11, 5];
         public static int[] invaderColumnLength = new int[11];
-        public Texture2D invaderUFO, invaderTop, invaderMiddle,player ,invaderBottom, shield,playerShot,shot1, shot2;
+        public Texture2D invaderUFO, invaderTop, invaderMiddle, player, invaderBottom, shield, playerShot, shot1, shot2;
         public static int lives = 3;
         public static int score = 0000;
         public float move;
